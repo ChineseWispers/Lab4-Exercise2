@@ -1,0 +1,73 @@
+<!-- Exercise 3 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+    body {
+    font-family : Arial, Helvetica , sans-serif ;
+    background-color : #e3f2fd;
+    }
+    .card {
+    padding: 10px;
+    margin: 3px;
+    border: 5px solid maroon;
+    }
+    .card-title {
+    font-weight : 600;
+    font-size : 3em;
+    padding: 0 0 10px 0;
+    }
+    .card-description {
+    font-weight : 400;
+    font-size : 2em
+    }
+    #profile-template {
+      font-size: 4em;
+      font-weight: 600;
+    }
+    </style>
+  </head>
+  <body></body>
+    <div id="profile-template">
+      <div id="profile-name"></div>
+    </div>
+    <template id="card-template" >
+      <div class="card">
+        <div class="card-body" >
+        <div class="card-title" ></div>
+        <div class="card-text"></div>
+        <img class="card-image">
+        </div>
+      </div>
+    </template >
+    <div id="card-list" ></div>
+    <script>
+      function addCard(data) {
+        document.getElementById("profile-name").innerText = data.name
+        
+        data.portfolio.forEach(element => {
+
+          const template = document.getElementById("card-template").content.cloneNode(true);
+
+          let objKeys = Object.keys(element)
+          template.querySelector('.card-title').innerText = element[objKeys[0]];
+          if (objKeys[1] === "url") {
+            template.querySelector('.card-image').setAttribute("src", element[objKeys[1]]);
+          } else {
+          template.querySelector('.card-text').innerText = element[objKeys[1]];
+        } 
+          document.querySelector('#card-list').appendChild(template);
+        })
+      }
+      
+      const artist= {name:"Van Gogh", portfolio:[
+        {title:"portrait",
+        url:"https://collectionapi.metmuseum.org/api/collection/v1/iiif/436532/1671316/main-image"},
+        {title:"sky", 
+        url:"https://mymodernmet.com/wp/wp-content/uploads/2020/11/White-house-night-van-goh-worldwide-2.jpg" },
+      ]}
+      addCard(artist);
+      addCard(artist); // demonstrates portfolio can be repeatedly added to
+      </script>
+  </body>
+</html>
